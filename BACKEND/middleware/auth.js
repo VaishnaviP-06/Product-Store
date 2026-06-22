@@ -41,3 +41,10 @@ export async function optionalProtect(req, res, next) {
     }
     next();
 }
+
+export async function admin(req, res, next) {
+    if (req.user && req.user.role === 'admin') {
+        return next();
+    }
+    return res.status(403).json({ success: false, message: 'Admin access required' });
+}
